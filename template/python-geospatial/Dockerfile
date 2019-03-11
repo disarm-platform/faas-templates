@@ -1,16 +1,14 @@
 FROM jonduckworthdg/geopandas-base
 
-RUN mkdir -p /app
+RUN mkdir -p /app/function
 
 RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
-# Useful for quicker local builds using downloaded fwatchdog
-# COPY ./fwatchdog /usr/bin 
 RUN chmod +x /usr/bin/fwatchdog
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY function/requirements.txt ./function
+RUN pip install -r ./function/requirements.txt
 
 COPY index.py .
 COPY config.py .

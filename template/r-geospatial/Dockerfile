@@ -3,8 +3,6 @@ FROM rocker/geospatial
 RUN mkdir -p /home/app
 
 RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
-# Useful for quicker local builds using downloaded fwatchdog
-# COPY ./fwatchdog /usr/bin 
 RUN chmod +x /usr/bin/fwatchdog
 
 WORKDIR /app
