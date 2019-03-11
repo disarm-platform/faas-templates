@@ -1,11 +1,9 @@
 FROM rocker/geospatial
 
-RUN mkdir -p /home/app
-
 RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
-# Useful for quicker local builds using downloaded fwatchdog
-# COPY ./fwatchdog /usr/bin 
 RUN chmod +x /usr/bin/fwatchdog
+
+RUN mkdir -p /home/app/function
 
 WORKDIR /app
 
@@ -18,7 +16,7 @@ COPY function function
 # Populate example here - i.e. "cat", "sha512sum" or "node index.js"
 ENV fprocess="Rscript main.R"
 # Set to true to see request in function logs
-ENV write_debug="false"
+# ENV write_debug="false"
 
 EXPOSE 8080
 
