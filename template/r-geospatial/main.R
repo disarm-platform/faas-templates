@@ -1,7 +1,7 @@
 library(jsonlite)
 library(geojsonio)
 
-check_params = dget('function/params_tests.R')
+preprocess_params = dget('function/preprocess_params.R')
 run_function = dget('function/function.R')
 
 main = function () {
@@ -11,7 +11,8 @@ main = function () {
     
     # checks for existence of required parameters, return error if any problems
     # checks types/structure of all parameters, return error if any problems
-    check_params(params)
+    # as required, replace any external URLs with data
+    preprocess_params(params)
 
     # if any parameters refer to remote files, try to download and 
     # replace parameter with local/temp file reference, return error if any problems

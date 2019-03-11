@@ -1,1 +1,6 @@
-# install.packages(c('sample_package'))
+# All the packages from the rocker/geospatial image are already included.
+# The full list is https://github.com/rocker-org/geospatial
+
+# For some reason `geojsonio` is not yet in rocker/geospatial. 
+# Remove from below if you don't need it.
+install.packages(c('geojsonio'))
