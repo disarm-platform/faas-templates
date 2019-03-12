@@ -33,10 +33,14 @@ This is important, so that any functions built on top of them are aware of the v
 There is a `set_version` script in the root. It might need `chmod +x set_version` to run it.
 
 ### Get version
-Run without any arguments to get the content of the VERSION file: i.e. `./set_version`
+Run without any arguments to get the content of the VERSION file:
+
+`$ ./set_version`
 
 ### Set version
-Run with either a `v0.0.1` or `0.0.1` style argument, to set the current version: e.g `./set_version v0.0.1`
+Run with either a `v0.0.1` or `0.0.1` style argument, to set the current version:
+
+`$ ./set_version v0.0.1`
 
  This will:
 1. Update the VERSION file in the main repo
