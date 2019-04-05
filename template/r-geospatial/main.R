@@ -1,5 +1,5 @@
 library(jsonlite)
-library(geojsonio)
+suppressPackageStartupMessages(library(geojsonio))
 
 preprocess_params = dget('function/preprocess_params.R')
 run_function = dget('function/function.R')
