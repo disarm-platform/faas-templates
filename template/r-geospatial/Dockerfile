@@ -10,7 +10,7 @@ RUN chmod +x /usr/bin/fwatchdog
 # RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
 
 # Add non root user
-RUN addgroup -S app && adduser app -S -G app
+# RUN addgroup -S app && adduser app -S -G app
 
 WORKDIR /home/app/
 
@@ -29,7 +29,7 @@ RUN Rscript function/install_packages.R
 
 WORKDIR /home/app/
 
-USER root
+# USER root
 
 COPY function           function
 
