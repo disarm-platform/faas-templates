@@ -1,5 +1,9 @@
+# TODO: start with importing watchdog from openfaas image
+# FROM ... as watchdog
+
 FROM rocker/geospatial
 
+# TODO: remove this watchdog
 RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
@@ -22,3 +26,8 @@ EXPOSE 8080
 
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 CMD [ "fwatchdog" ]
+
+# TODO remove timeouts
+ENV write_timeout=600
+ENV read_timeout=600
+ENV exec_timeout=600
