@@ -1,33 +1,43 @@
-# # TODO: start with importing watchdog from openfaas image
-# # FROM ... as watchdog
+FROM openfaas/classic-watchdog:0.18.0 as watchdog
 
-# FROM rocker/geospatial
+FROM rocker/geospatial
 
-# # TODO: remove this watchdog
-# RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
-# RUN chmod +x /usr/bin/fwatchdog
+# Allows you to add additional packages via build-arg
+ARG ADDITIONAL_PACKAGE
 
-RUN mkdir -p /home/app/function
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
+RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
 
-# WORKDIR /app
+# Add non root user
+RUN addgroup -S app && adduser app -S -G app
 
-# COPY function/install_packages.R function/
-# RUN Rscript function/install_packages.R
+WORKDIR /home/app/
 
-# COPY main.R .
-# COPY function function
+COPY main.R             .
 
-# Populate example here - i.e. "cat", "sha512sum" or "node index.js"
-# ENV fprocess="Rscript main.R"
-# Set to true to see request in function logs
-# ENV write_debug="false"
+RUN chown -R app /home/app
+USER app
 
-# EXPOSE 8080
 
-# HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
-# CMD [ "fwatchdog" ]
+RUN mkdir -p function
+RUN touch ./function/__init__.py
 
-# # TODO remove timeouts
-# ENV write_timeout=600
-# ENV read_timeout=600
-# ENV exec_timeout=600
+WORKDIR /home/app/function/
+COPY function/install_packages.R function/
+RUN Rscript function/install_packages.R
+
+WORKDIR /home/app/
+
+USER root
+
+COPY function           function
+
+USER app
+
+ENV fprocess="Rscript main.R"
+EXPOSE 8080
+
+HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
+
+CMD ["fwatchdog"]
