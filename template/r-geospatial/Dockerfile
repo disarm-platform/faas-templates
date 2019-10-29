@@ -3,11 +3,11 @@ FROM openfaas/classic-watchdog:0.18.0 as watchdog
 FROM rocker/geospatial
 
 # Allows you to add additional packages via build-arg
-ARG ADDITIONAL_PACKAGE
+# ARG ADDITIONAL_PACKAGE
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
-RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
+# RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
 
 # Add non root user
 RUN addgroup -S app && adduser app -S -G app
