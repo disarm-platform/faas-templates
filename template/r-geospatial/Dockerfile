@@ -1,33 +1,33 @@
-# TODO: start with importing watchdog from openfaas image
-# FROM ... as watchdog
+# # TODO: start with importing watchdog from openfaas image
+# # FROM ... as watchdog
 
-FROM rocker/geospatial
+# FROM rocker/geospatial
 
-# TODO: remove this watchdog
-RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
-RUN chmod +x /usr/bin/fwatchdog
+# # TODO: remove this watchdog
+# RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
+# RUN chmod +x /usr/bin/fwatchdog
 
 RUN mkdir -p /home/app/function
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY function/install_packages.R function/
-RUN Rscript function/install_packages.R
+# COPY function/install_packages.R function/
+# RUN Rscript function/install_packages.R
 
-COPY main.R .
-COPY function function
+# COPY main.R .
+# COPY function function
 
 # Populate example here - i.e. "cat", "sha512sum" or "node index.js"
-ENV fprocess="Rscript main.R"
+# ENV fprocess="Rscript main.R"
 # Set to true to see request in function logs
 # ENV write_debug="false"
 
-EXPOSE 8080
+# EXPOSE 8080
 
-HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
-CMD [ "fwatchdog" ]
+# HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
+# CMD [ "fwatchdog" ]
 
-# TODO remove timeouts
-ENV write_timeout=600
-ENV read_timeout=600
-ENV exec_timeout=600
+# # TODO remove timeouts
+# ENV write_timeout=600
+# ENV read_timeout=600
+# ENV exec_timeout=600
