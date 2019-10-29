@@ -16,8 +16,8 @@ WORKDIR /home/app/
 
 COPY main.R             .
 
-RUN chown -R app /home/app
-USER app
+# RUN chown -R app /home/app
+# USER app
 
 
 RUN mkdir -p function
@@ -33,7 +33,7 @@ WORKDIR /home/app/
 
 COPY function           function
 
-USER app
+# USER app
 
 ENV fprocess="Rscript main.R"
 EXPOSE 8080
