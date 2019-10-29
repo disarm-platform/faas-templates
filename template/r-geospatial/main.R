@@ -7,12 +7,16 @@ run_function = dget('function/function.R')
 main = function () {
   tryCatch({
     # reads STDIN as JSON, return error if any problems
-    params = fromJSON(readLines(file("stdin")))
+    incoming = readLines(file("stdin"), warn=FALSE)
+    if (is.null(incoming)) {
+      stop("Request received by function is not valid JSON. Please check docs")
+    }
+    params = fromJSON(incoming)
     
     # checks for existence of required parameters, return error if any problems
     # checks types/structure of all parameters, return error if any problems
     # as required, replace any external URLs with data
-    preprocess_params(params)
+    params = preprocess_params(params)
 
     # if any parameters refer to remote files, try to download and 
     # replace parameter with local/temp file reference, return error if any problems
@@ -37,13 +41,13 @@ retrieve_remote_files = function(params) {
 
 handle_error = function(error) {
   type = 'error'
-  function_response = as.json(list(type = unbox(type), content = unbox(as.character(error))))
+  function_response = as.json(list(function_status = unbox(type), result = unbox(unbox(error$message))))
   return(write(function_response, stdout()))
 }
 
 handle_success = function(content) {
   type = 'success'
-  function_response = as.json(list(type = unbox(type), content = content))
+  function_response = as.json(list(function_status = unbox(type), result = content))
   return(write(function_response, stdout()))
 }
 
