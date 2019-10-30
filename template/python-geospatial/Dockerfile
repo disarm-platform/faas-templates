@@ -1,4 +1,4 @@
-FROM jonduckworthdg/geopandas-base
+FROM disarm/geopandas-r-base
 
 RUN wget https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog -O /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
