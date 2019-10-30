@@ -17,7 +17,7 @@ WORKDIR /home/app/
 
 COPY index.py           .
 COPY requirements.txt   .
-COPY temp_dir.py        .
+COPY tempdir.py        .
 
 # RUN chown -R app /home/app && \
 #   mkdir -p /home/app/python && chown -R app /home/app
