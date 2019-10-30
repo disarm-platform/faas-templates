@@ -4,7 +4,7 @@ import sys
 from json import JSONDecodeError
 from urllib.error import URLError
 
-import config
+import tempdir
 from function import handler
 from function import preprocess_params
 
@@ -68,4 +68,4 @@ if __name__ == "__main__":
         handle_error(err, "Unknown error")
 
     finally:
-        shutil.rmtree(config.TEMP)
+        shutil.rmtree(tempdir.TEMP)
