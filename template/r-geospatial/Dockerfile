@@ -21,7 +21,6 @@ COPY main.R             .
 
 
 RUN mkdir -p function
-RUN touch ./function/__init__.py
 
 WORKDIR /home/app/function/
 COPY function/install_packages.R function/
