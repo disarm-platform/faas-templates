@@ -11,4 +11,5 @@ function(params) {
   # }
 
   # Optional replacement of URLs with retrieved data
+  return(params)
 }
