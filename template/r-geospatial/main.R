@@ -18,10 +18,6 @@ main = function () {
     # as required, replace any external URLs with data
     params = preprocess_params(params)
 
-    # if any parameters refer to remote files, try to download and 
-    # replace parameter with local/temp file reference, return error if any problems
-    retrieve_remote_files(params)
-    
     # run the function with parameters, 
     # return error if any problems, return success if succeeds      
     function_response = run_function(params)
@@ -29,14 +25,6 @@ main = function () {
   }, error = function(e) {
     return(handle_error(e))
   })
-}
-
-retrieve_remote_files = function(params) {
-  # TODO: Write when we have a specific need
-  # check if any params are strings that start with 'http' (any case)
-  # tryCatch retrieve that file, 
-  #   stop() if problems, 
-  #   otherwise, write to temp disk, replace parameter with temp filename
 }
 
 handle_error = function(error) {

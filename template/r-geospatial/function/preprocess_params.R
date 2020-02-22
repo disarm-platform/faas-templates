@@ -10,6 +10,5 @@ function(params) {
   #   stop('Only pass a single value for `number')
   # }
 
-  # Optional replacement of URLs with retrieved data
   return(params)
 }
