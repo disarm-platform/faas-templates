@@ -1,4 +1,5 @@
 library(jsonlite)
+library(readr)
 suppressPackageStartupMessages(library(geojsonio))
 
 preprocess_params = dget('function/preprocess_params.R')
@@ -7,11 +8,11 @@ run_function = dget('function/function.R')
 main = function () {
   tryCatch({
     # reads STDIN as JSON, return error if any problems
-    incoming = readLines(file("stdin"), warn=FALSE)
+    incoming = readr::read_file(file("stdin"))
     if (is.null(incoming)) {
       stop("Request received by function is not valid JSON. Please check docs")
     }
-    params = fromJSON(incoming)
+    params = rjson::fromJSON(incoming, simplify = FALSE)
     
     # checks for existence of required parameters, return error if any problems
     # checks types/structure of all parameters, return error if any problems
